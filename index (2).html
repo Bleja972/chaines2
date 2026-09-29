@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CE1 - Lis les instructions</title>
+<style>
+:root{
+  --navy:#17324d;--orange:#f2b36d;--cream:#fff8ef;--green:#2f8f57;
+  --red:#c94c4c;--blue:#8fd3ff;--pink:#f7bfd1;--mint:#a9e3b1;
+  --yellow:#ffe18a;--lav:#cbbdff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--navy);
+  background:linear-gradient(180deg,#fff8ef,#fde2ba);
+}
+.wrap{max-width:980px;margin:0 auto;padding:18px}
+.panel{
+  background:#fff;border:3px solid #efd9bc;box-shadow:0 10px 28px rgba(0,0,0,.1);
+  overflow:hidden;
+}
+header{
+  display:flex;gap:14px;align-items:center;padding:18px;
+  background:linear-gradient(135deg,#ffe7bd,#ffd49b 55%,#fff0d3);
+  border-bottom:3px solid #efd4ad;
+}
+.badge{
+  width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:#fff;color:#111;font-size:28px;font-weight:900;border:3px solid #ddd;flex:0 0 auto;
+}
+h1{margin:0;font-size:clamp(24px,4vw,38px)}
+main{padding:18px}
+.info{
+  background:#fff4df;border:2px solid #efc786;padding:12px 14px;margin-bottom:16px;
+  font-weight:800;
+}
+.table-wrap{overflow-x:auto}
+table{
+  width:100%;border-collapse:separate;border-spacing:0;border:3px solid #263f55;
+}
+th,td{
+  border-right:2px solid #263f55;border-bottom:2px solid #263f55;padding:13px 12px;
+}
+th:last-child,td:last-child{border-right:none}
+tr:last-child td{border-bottom:none}
+th{
+  background:#e7f4ff;font-size:25px;text-align:center;color:#111;
+}
+.instructions{
+  width:65%;font-size:20px;line-height:1.35;font-weight:700;
+}
+.answer-cell{width:35%;text-align:center;background:#fcfdff}
+tr:nth-child(1) .instructions{background:#fff0d7}
+tr:nth-child(2) .instructions{background:#eef9ef}
+tr:nth-child(3) .instructions{background:#ebf6ff}
+tr:nth-child(4) .instructions{background:#fff0f5}
+tr:nth-child(5) .instructions{background:#fff9dd}
+tr:nth-child(6) .instructions{background:#edf9f4}
+tr:nth-child(7) .instructions{background:#eef4ff}
+tr:nth-child(8) .instructions{background:#fff3e9}
+tr:nth-child(9) .instructions{background:#f3efff}
+tr:nth-child(10) .instructions{background:#edf8ff}
+.start-number{
+  display:inline-block;min-width:95px;padding:12px 16px;background:#eee;border:3px solid #bbb;
+  color:#8e8e8e;font-size:30px;font-weight:900;
+}
+.answer{
+  width:120px;max-width:95%;height:58px;border:3px solid #7db9dc;background:white;
+  color:var(--navy);font-size:30px;font-weight:900;text-align:center;outline:none;
+}
+.answer:focus{border-color:#f0a24b;box-shadow:0 0 0 4px rgba(240,162,75,.18)}
+.answer.good{background:#e9f8ee;border-color:var(--green);color:#1e6d42}
+.answer.bad{background:#fdeaea;border-color:var(--red);color:#9b2e2e}
+.actions{
+  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px;
+}
+button{
+  min-height:50px;border:none;padding:12px 18px;font-size:18px;font-weight:900;cursor:pointer;color:white;
+}
+#checkBtn{background:var(--green)}
+#correctBtn{background:#6c63d9}
+#resetBtn{background:var(--navy)}
+#helpBtn{background:#d88b36}
+.result{min-height:34px;margin-top:16px;text-align:center;font-size:22px;font-weight:900}
+.help{
+  display:none;margin-top:14px;padding:12px;background:#fff8df;border:2px solid #eac46c;font-weight:700;color:#6c5100;
+}
+@media(max-width:650px){
+  .instructions{font-size:17px}
+  th{font-size:20px}
+  .answer{width:90px;font-size:26px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="panel">
+<header>
+  <div class="badge">1</div>
+  <h1>Lis les instructions et écris le nombre correspondant.</h1>
+</header>
+<main>
+  <div class="info">Le résultat d'une ligne sert de nombre de départ pour la ligne suivante.</div>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Instructions</th><th>Nombre</th></tr></thead>
+    <tbody>
+      <tr><td class="instructions">1. Commence avec le nombre <strong>quarante-six</strong>.</td><td class="answer-cell"><span class="start-number">46</span></td></tr>
+      <tr><td class="instructions">2. Ajoute 2 dizaines.</td><td class="answer-cell"><input class="answer" id="r2" inputmode="numeric"></td></tr>
+      <tr><td class="instructions">3. Ajoute 10.</td><td class="answer-cell"><input class="answer" id="r3" inputmode="numeric"></td></tr>
+      <tr><td class="instructions">4. Soustrais 4 unités.</td><td class="answer-cell"><input class="answer" id="r4" inputmode="numeric"></td></tr>
+      <tr><td class="instructions">5. Soustrais 2 unités.</td><td class="answer-cell"><input class="answer" id="r5" inputmode="numeric"></td></tr>
+      <tr><td class="instructions">6. Écris la moitié de ce nombre.</td><td class="answer-cell"><input class="answer" id="r6" inputmode="numeric"></td></tr>
+      <tr><td class="instructions">7. Ajoute autant d’unités que le nombre a de dizaines.</td><td class="answer-cell"><input class="answer" id="r7" inputmode="numeric"></td></tr>
+      <tr><td class="instructions">8. Écris la moitié de ce nombre.</td><td class="answer-cell"><input class="answer" id="r8" inputmode="numeric"></td></tr>
+      <tr><td class="instructions">9. Ajoute 1 dizaine et 3 unités.</td><td class="answer-cell"><input class="answer" id="r9" inputmode="numeric"></td></tr>
+      <tr><td class="instructions">10. Soustrais 2 dizaines et 2 unités.</td><td class="answer-cell"><input class="answer" id="r10" inputmode="numeric"></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="actions">
+    <button id="checkBtn" type="button">Vérifier</button>
+    <button id="correctBtn" type="button">Correction</button>
+    <button id="resetBtn" type="button">Recommencer</button>
+    <button id="helpBtn" type="button">Aide</button>
+  </div>
+  <div class="result" id="result"></div>
+  <div class="help" id="helpBox">Astuce : pars toujours du résultat de la ligne précédente. Les nombres à partager en deux sont toujours pairs, afin que leur moitié soit un nombre entier. Exemple : 46 + 20 = 66.</div>
+</main>
+</div>
+</div>
+
+<script>
+(function(){
+  const expected = {r2:66,r3:76,r4:72,r5:70,r6:35,r7:38,r8:19,r9:32,r10:10};
+  const ids = Object.keys(expected);
+  const inputs = ids.map(id => document.getElementById(id));
+  const result = document.getElementById('result');
+  const checkBtn = document.getElementById('checkBtn');
+  const correctBtn = document.getElementById('correctBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const helpBtn = document.getElementById('helpBtn');
+  const helpBox = document.getElementById('helpBox');
+
+  inputs.forEach(function(input, index){
+    input.addEventListener('input', function(){
+      input.value = input.value.replace(/[^0-9]/g,'');
+      input.classList.remove('good','bad');
+    });
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && index < inputs.length-1){
+        inputs[index+1].focus();
+      }
+    });
+  });
+
+  checkBtn.addEventListener('click', function(){
+    let good = 0;
+    inputs.forEach(function(input){
+      input.classList.remove('good','bad');
+      const value = input.value.trim();
+      if(value !== '' && Number(value) === expected[input.id]){
+        input.classList.add('good');
+        good++;
+      } else {
+        input.classList.add('bad');
+      }
+    });
+    if(good === inputs.length){
+      result.textContent = 'Bravo ! Toutes les réponses sont justes.';
+      result.style.color = '#2f8f57';
+    } else {
+      result.textContent = 'Tu as ' + good + ' bonne' + (good>1?'s':'') + ' réponse' + (good>1?'s':'') + ' sur ' + inputs.length + '.';
+      result.style.color = '#b16b12';
+    }
+  });
+
+  correctBtn.addEventListener('click', function(){
+    inputs.forEach(function(input){
+      input.value = expected[input.id];
+      input.classList.remove('bad');
+      input.classList.add('good');
+    });
+    result.textContent = 'Correction affichée.';
+    result.style.color = '#2f8f57';
+  });
+
+  resetBtn.addEventListener('click', function(){
+    inputs.forEach(function(input){
+      input.value = '';
+      input.classList.remove('good','bad');
+    });
+    result.textContent = '';
+    helpBox.style.display = 'none';
+    inputs[0].focus();
+  });
+
+  helpBtn.addEventListener('click', function(){
+    helpBox.style.display = helpBox.style.display === 'block' ? 'none' : 'block';
+  });
+
+  inputs[0].focus();
+})();
+</script>
+</body>
+</html>
